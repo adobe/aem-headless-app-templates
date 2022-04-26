@@ -11,7 +11,7 @@ export const TitleEditConfig = {
 };
 
 export const Title = (props) => {
-    return (<EditableComponent config={TitleEditConfig}><h1 className="text-2xl font-semibold my-2">{props.text}</h1></EditableComponent>)
+    return (<h1 className="text-2xl font-semibold my-2">{props.text}</h1>)
 };
 
-export const AEMTitle = Title;
+export const AEMTitle = (props) => <EditableComponent config={TitleEditConfig} {...props}><Title/></EditableComponent>;

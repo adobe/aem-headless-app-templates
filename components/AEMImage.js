@@ -28,10 +28,8 @@ export default class Image extends Component {
             return null;
         }
         return (
-            <EditableComponent config={ImageEditConfig}>
-                {this.content}
-            </EditableComponent>
+            this.content
         );
     }
 }
-export const AEMImage = Image;
+export const AEMImage = (props) => <EditableComponent config={ImageEditConfig} {...props}><Image/></EditableComponent>;;

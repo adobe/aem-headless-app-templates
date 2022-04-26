@@ -2,13 +2,17 @@ import Head from 'next/head';
 import Layout from '../components/layout';
 import { getPageModel, getItemFromPageModel } from '../lib/pages';
 import { AEMResponsiveGrid } from '../components/AEMResponsiveGrid';
+import { ResponsiveGrid } from '@adobe/aem-react-editable-components'
+import { AEMTitle } from '../components/AEMTitle';
 
 const { NEXT_PUBLIC_AEM_PATH } = process.env;
 
 export default function Home({ model }) {
   const responsiveGridModel = getItemFromPageModel(model, 'root/responsivegrid');
-  console.log(JSON.stringify(responsiveGridModel))
+  const titleModel = getItemFromPageModel(model, 'root/responsivegrid/title');
+  console.log(JSON.stringify(titleModel))
   const responsiveGridModelProps = modelToProps(responsiveGridModel);
+  const titleModelProps = modelToProps(titleModel);
   return (
     <Layout>
       <Head>
@@ -16,10 +20,16 @@ export default function Home({ model }) {
       </Head>
       <section>
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-2 lg:py-6">
-          <AEMResponsiveGrid
+          {/* <AEMTitle
+            {...titleModelProps}
+            model={titleModel}
+            pagePath={NEXT_PUBLIC_AEM_PATH}
+            itemPath='root/responsivegrid/title'
+            /> */}
+          <ResponsiveGrid
             model = {responsiveGridModelProps}
-            // pagePath={NEXT_PUBLIC_AEM_PATH}
-            // itemPath='root/responsivegrid'
+            pagePath={NEXT_PUBLIC_AEM_PATH}
+            itemPath='root/responsivegrid'
           />
         </div>
       </section>

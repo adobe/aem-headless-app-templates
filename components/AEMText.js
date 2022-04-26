@@ -11,19 +11,16 @@ export const TextEditConfig = {
     resourceType: `${NEXT_PUBLIC_AEM_SITE}/components/text`
 };
 
-export const Text = ({ richText, text }) => {
+export const Text = (props) => {
+    const { richText, text } = props;
     const textCss = "text-gray-800 py-4 sm:py-2 lg:py-6";
     const richTextContent = () => (
-        <EditableComponent config={TextEditConfig}>
-            <div className={textCss} dangerouslySetInnerHTML={{__html: text}} />
-        </EditableComponent>
+        <div className={textCss} dangerouslySetInnerHTML={{__html: text}} />
     );
     const normalTextContent = () => (
-        <EditableComponent config={TextEditConfig}>
-            <div className={textCss}>{text}</div>
-        </EditableComponent>
+        <div className={textCss}>{text}</div>
     );
     return richText ? richTextContent() : normalTextContent();
 };
 
-export const AEMText = Text;
+export const AEMText = (props) => <EditableComponent config={TextEditConfig} {...props}><Text/></EditableComponent>;
