@@ -3,12 +3,7 @@ import { ModelManager } from '@adobe/aem-spa-page-model-manager'
 import CustomModelClient from '../lib/CustomModelClient'
 import '../components/import-components'
 
-const contextValue = {
-  aemHost: process.env.NEXT_PUBLIC_AEM_HOST,
-  rootPath: process.env.NEXT_PUBLIC_AEM_PATH
-}
-
-const modelClient = new CustomModelClient(contextValue.aemHost)
+const modelClient = new CustomModelClient(process.env.NEXT_PUBLIC_AEM_HOST)
 ModelManager.initializeAsync({
   modelClient,
 })

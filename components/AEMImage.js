@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withMappable } from '@adobe/aem-react-editable-components';
+import { EditableComponent } from '@adobe/aem-react-editable-components';
 
 const NEXT_PUBLIC_AEM_HOST = process.env.NEXT_PUBLIC_AEM_HOST;
 const NEXT_PUBLIC_AEM_SITE = process.env.NEXT_PUBLIC_AEM_SITE;
@@ -28,11 +28,8 @@ export default class Image extends Component {
             return null;
         }
         return (
-            <div>
-                {this.content}
-            </div>
+            this.content
         );
     }
 }
-
-export const AEMImage = withMappable(Image, ImageEditConfig);
+export const AEMImage = (props) => <EditableComponent config={ImageEditConfig} {...props}><Image/></EditableComponent>;

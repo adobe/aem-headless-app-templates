@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "clean": "rm -rf .next/ node_modules/ package-lock.json",
     "start": "next start"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { withMappable } from '@adobe/aem-react-editable-components';
+import { EditableComponent } from '@adobe/aem-react-editable-components';
 
 const { NEXT_PUBLIC_AEM_SITE } = process.env;
 
@@ -11,15 +11,16 @@ export const TextEditConfig = {
     resourceType: `${NEXT_PUBLIC_AEM_SITE}/components/text`
 };
 
-export const Text = ({ cqPath, richText, text }) => {
+export const Text = (props) => {
+    const { richText, text } = props;
     const textCss = "text-gray-800 py-4 sm:py-2 lg:py-6";
     const richTextContent = () => (
-        <div className={textCss}
-            id="text"
-            data-rte-editelement
-            dangerouslySetInnerHTML={{__html: text}} />
+        <div className={textCss} dangerouslySetInnerHTML={{__html: text}} />
     );
-    return richText ? richTextContent() : (<div className={textCss}>{text}</div>);
+    const normalTextContent = () => (
+        <div className={textCss}>{text}</div>
+    );
+    return richText ? richTextContent() : normalTextContent();
 };
 
-export const AEMText = withMappable(Text, TextEditConfig);
+export const AEMText = (props) => <EditableComponent config={TextEditConfig} {...props}><Text/></EditableComponent>;
