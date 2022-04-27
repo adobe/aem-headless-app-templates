@@ -32,4 +32,4 @@ export default class Image extends Component {
         );
     }
 }
-export const AEMImage = (props) => <EditableComponent config={ImageEditConfig} {...props}><Image/></EditableComponent>;;
+export const AEMImage = (props) => <EditableComponent config={ImageEditConfig} {...props}><Image/></EditableComponent>;
