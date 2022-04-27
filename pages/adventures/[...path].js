@@ -99,7 +99,16 @@ export default function Adventure({ adventure }) {
   );
 }
 
-export async function getServerSideProps({ params }) {
+export async function getStaticPaths() {
+  const client = AdventureClient.fromEnv();
+  const paths = await client.getAdventurePaths();
+  return {
+    paths,
+    fallback: 'blocking',
+  };
+}
+
+export async function getStaticProps({ params }) {
   const client = AdventureClient.fromEnv();
   const cfPath = params.path.join('/');
   const path = `/content/dam/wknd/en/adventures/${cfPath}`;

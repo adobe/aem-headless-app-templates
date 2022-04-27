@@ -47,7 +47,7 @@ export default function Adventures({ adventures }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const client = AdventureClient.fromEnv();
   const res = await client.getAllAdventures();
   const adventures = res?.data?.adventureList?.items;
