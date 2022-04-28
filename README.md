@@ -44,10 +44,10 @@ This tutorial has a dependency on WKND 1.1.0+'s project (for content).
 In the terminal, create an AEM project in which configurations and baseline content are managed. Always use the latest version of the AEM Archetype.
 
 ```bash
-$ mvn -B archetype:generate \
+$ mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
  -D archetypeGroupId=com.adobe.aem \
  -D archetypeArtifactId=aem-project-archetype \
- -D archetypeVersion=27 \
+ -D archetypeVersion=36\
  -D aemVersion=cloud \
  -D appTitle="WKND App" \
  -D appId="wknd-app" \
