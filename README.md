@@ -10,6 +10,24 @@ Page content is retrieved from AEM as page model using Sling JSON Exporter and c
 
 ![editor](editor.png "Editor")
 
+## Table of contents
+
+<!--ts-->
+   * [Getting Started](#getting-started)
+      * [Start the AEM SDK Quickstart](#start-the-aem-sdk-quickstart)
+      * [Download and install WKND Site package](#download-and-install-wknd-site-package)
+      * [Set up AEM Project](#set-up-aem-project)
+      * [Configure the root AEM page](#configure-the-root-aem-page)
+      * [Bootstrap the Next.js App](#bootstrap-the-nextjs-app)
+   * [Local development](#local-development)
+   * [Run in production mode](#run-in-production-mode)
+   * [Run on AEM 6.5](#run-on-aem-65)
+   * [Troubleshooting](#troubleshooting)
+     * [Supported browsers](#supported-browsers)
+     * [Supported Node version](#supported-node-version)
+     * [CORS errors from In-context Editing on a production build](#cors-errors-from-in-context-editing-on-a-production-build)
+<!--te-->
+
 ## Getting Started
 
 ### Start the AEM SDK Quickstart
@@ -144,7 +162,7 @@ Then, execute the below command to run the app in development mode.
 $ npm run dev
 ```
 
-## Running production mode
+## Run in production mode
 
 Make sure you update `.env.production` with your own instances. Then execute the build command.
 
@@ -158,7 +176,7 @@ Once it is built successfully, you can start the production server.
 $ npm run start
 ```
 
-## Running on AEM 6.5
+## Run on AEM 6.5
 
 The instructions in [Getting Started](#getting-started) are mainly targeted at AEM Cloud Service. To make this example work with AEM 6.5.12 or newer - use these steps.  
 
@@ -195,7 +213,7 @@ It's recommended to use node version 16.x for now - testing a wider range of nod
 
 _(source: https://github.com/duynguyen/aem-nextjs-template/issues/5)_
 
-### CORS errors in In-context Editing on a production build
+### CORS errors from In-context Editing on a production build
 
 When testing locally by running `npm run dev`, you can load the app at `http://localhost:3000` in AEM Remote Editor without any problem.  
 
