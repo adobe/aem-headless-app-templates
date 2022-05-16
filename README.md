@@ -22,6 +22,7 @@ Page content is retrieved from AEM as page model using Sling JSON Exporter and c
    * [Local development](#local-development)
    * [Run in production mode](#run-in-production-mode)
    * [Run on AEM 6.5](#run-on-aem-65)
+   * [More components](#more-components)
    * [Troubleshooting](#troubleshooting)
      * [Supported browsers](#supported-browsers)
      * [Supported Node version](#supported-node-version)
@@ -197,6 +198,12 @@ mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
 Install [aem-guides-wknd.all-1.1.0-classic.zip](https://github.com/adobe/aem-guides-wknd/releases/download/aem-guides-wknd-1.1.0/aem-guides-wknd.all-1.1.0-classic.zip) - the `-classic.zip` contains all dependencies needed to make the WKND site work on 6.5. The rest of the steps are the same.  
 
 _(source: https://github.com/duynguyen/aem-nextjs-template/issues/3)_
+
+## More components
+
+While the default components including title, text and image already gave you something cool to start with, you might want to add more complex components. Here we try to add the Teaser component. In this branch, we already created `AEMTeaser` component in React that's ready for use.  
+
+To add a teaser in AEM, go to [Remote Next.js Page template policy](http://localhost:4502/editor.html/conf/wknd-app/settings/wcm/templates/spa-next-remote-page/structure.html) to add Teaser as an allowed component. See [these examples](https://experienceleague.adobe.com/docs/experience-manager-learn/getting-started-with-aem-headless/spa-editor/react/map-components.html?lang=en) for more details.
 
 ## Troubleshooting
 
