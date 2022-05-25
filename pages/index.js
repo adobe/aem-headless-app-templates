@@ -1,13 +1,11 @@
 import Head from 'next/head';
 import Layout from '../components/layout';
-import { getPageModel, getItemFromPageModel, modelToProps } from '../lib/pages';
-import { ResponsiveGrid } from '@adobe/aem-react-editable-components'
+import { ResponsiveGrid, fetchModel } from '@adobe/aem-react-editable-components';
 
-const { NEXT_PUBLIC_AEM_PATH } = process.env;
+const NEXT_PUBLIC_AEM_PATH = process.env.NEXT_PUBLIC_AEM_PATH;
+const NEXT_PUBLIC_AEM_HOST = process.env.NEXT_PUBLIC_AEM_HOST;
 
 export default function Home({ model }) {
-  const responsiveGridModel = getItemFromPageModel(model, 'root/responsivegrid');
-  const responsiveGridModelProps = modelToProps(responsiveGridModel);
   return (
     <Layout>
       <Head>
@@ -16,7 +14,7 @@ export default function Home({ model }) {
       <section>
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-4 sm:py-2 lg:py-6">
           <ResponsiveGrid
-            model = {responsiveGridModelProps}
+            model = {model}
             pagePath={NEXT_PUBLIC_AEM_PATH}
             itemPath='root/responsivegrid'
           />
@@ -27,7 +25,16 @@ export default function Home({ model }) {
 }
 
 export async function getServerSideProps() {
-  const model = await getPageModel(NEXT_PUBLIC_AEM_PATH);
+  const model = await fetchModel({
+    pagePath: NEXT_PUBLIC_AEM_PATH,
+    itemPath: 'root/responsivegrid',
+    host: NEXT_PUBLIC_AEM_HOST,
+    options: {
+      headers: {
+        Authorization: 'Basic YWRtaW46YWRtaW4='
+      }
+    }
+  });
   return {
     props: {
       model
