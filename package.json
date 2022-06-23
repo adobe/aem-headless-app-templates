@@ -10,7 +10,7 @@
     "@adobe/aem-core-components-react-base": "^1.1.8",
     "@adobe/aem-core-components-react-spa": "^1.2.0",
     "@adobe/aem-headless-client-js": "^3.1.1",
-    "@adobe/aem-react-editable-components": "file:adobe-aem-react-editable-components-1.1.10.tgz",
+    "@adobe/aem-react-editable-components": "^2.0.0",
     "@adobe/aem-spa-component-mapping": "^1.1.1",
     "@adobe/aem-spa-page-model-manager": "^1.4.0",
     "@apollo/client": "^3.5.10",
