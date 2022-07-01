@@ -65,7 +65,7 @@ In the terminal, create an AEM project in which configurations and baseline cont
 $ mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
  -D archetypeGroupId=com.adobe.aem \
  -D archetypeArtifactId=aem-project-archetype \
- -D archetypeVersion=36\
+ -D archetypeVersion=37\
  -D aemVersion=cloud \
  -D appTitle="WKND App" \
  -D appId="wknd-app" \
@@ -186,7 +186,7 @@ To bootstrap the AEM project - use the archetype as follows:
 mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
  -D archetypeGroupId=com.adobe.aem \
  -D archetypeArtifactId=aem-project-archetype \
- -D archetypeVersion=36\
+ -D archetypeVersion=37\
  -D aemVersion=6.5.12 \
  -D appTitle="WKND App" \
  -D appId="wknd-app" \
