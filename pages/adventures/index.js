@@ -19,10 +19,10 @@ export default function Adventures({ adventures }) {
             {adventures.map(
                 ({
                   _path,
-                  adventureTitle,
-                  adventurePrice,
-                  adventureTripLength,
-                  adventurePrimaryImage,
+                  title,
+                  price,
+                  tripLength,
+                  primaryImage,
                 }) => {
                   const pathItems = _path.split('/');
                   const cfPath = pathItems.slice(Math.max(pathItems.length - 2, 0)).join('/');
@@ -31,10 +31,10 @@ export default function Adventures({ adventures }) {
                     <AdventureCard
                       key={_path}
                       path={path}
-                      title={adventureTitle}
-                      price={adventurePrice}
-                      duration={adventureTripLength}
-                      imageSrc={`${NEXT_PUBLIC_AEM_HOST}${adventurePrimaryImage._path}`}
+                      title={title}
+                      price={price}
+                      duration={tripLength}
+                      imageSrc={`${NEXT_PUBLIC_AEM_HOST}${primaryImage._path}`}
                     />
                   );
                 }

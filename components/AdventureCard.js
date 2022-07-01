@@ -12,7 +12,7 @@ export default function AdventureCard({ path, title, price, duration, imageSrc }
       </div>
       <div className="mt-4 flex justify-between">
         <p className="mt-1 text-sm text-gray-500">{duration}</p>
-        <p className="text-sm font-medium text-gray-900">{price}</p>
+        <p className="text-sm font-medium text-gray-900">${price} USD</p>
       </div>
       <h3 className="font-semibold text-gray-700">
         <Link href={path}>
