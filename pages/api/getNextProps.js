@@ -1,4 +1,4 @@
-const { DOMParser } = require('xmldom');
+const { DOMParser } = require('@xmldom/xmldom');
 const { NEXT_PUBLIC_URL} = process.env;
 
 export default async function handler(req, res) {
