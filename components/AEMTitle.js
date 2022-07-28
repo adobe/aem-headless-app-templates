@@ -1,12 +1,13 @@
 import React from 'react'
 import { EditableComponent } from '@adobe/aem-react-editable-components'
-import { TitleV2IsEmptyFn } from '@adobe/aem-core-components-react-base'
 
 const { NEXT_PUBLIC_AEM_SITE } = process.env;
 
 export const TitleEditConfig = {
     emptyLabel: 'Title',
-    isEmpty: TitleV2IsEmptyFn,
+    isEmpty: function(props) {
+        return props.text == null || props.text.trim().length === 0;
+    },
     resourceType: `${NEXT_PUBLIC_AEM_SITE}/components/title`
 };
 
