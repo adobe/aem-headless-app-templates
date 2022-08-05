@@ -31,19 +31,16 @@ export default function Adventures({ adventures }) {
             <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
             {adventures.map(
                 ({
-                  _path,
+                  slug,
                   title,
                   price,
                   tripLength,
                   primaryImage,
                 }) => {
-                  const pathItems = _path.split('/');
-                  const cfPath = pathItems.slice(Math.max(pathItems.length - 2, 0)).join('/');
-                  const path = `/adventures/${cfPath}`;
                   return (
                     <AdventureCard
-                      key={_path}
-                      path={path}
+                      key={slug}
+                      slug={slug}
                       title={title}
                       price={price}
                       duration={tripLength}

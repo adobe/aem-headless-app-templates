@@ -123,10 +123,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const client = AdventureClient.fromEnv();
-  const cfPath = params.path.join('/');
-  const path = `/content/dam/wknd-shared/en/adventures/${cfPath}`;
-  const res = await client.getAdventureByPath(path);
-  const adventure = res?.data?.adventureByPath?.item;
+  const slug = params.path[0];
+  const res = await client.getAdventuresBySlug(slug);
+  const adventure = res?.data?.adventureList?.items[0];
   return {
     props: {
       adventure,
