@@ -11,7 +11,7 @@
  *
  */
 
-import '../styles/tailwind.css';
+import '../styles/index.scss';
 import { ModelManager } from '@adobe/aem-spa-page-model-manager';
 import CustomModelClient from '../lib/CustomModelClient';
 import '../components/import-components';
