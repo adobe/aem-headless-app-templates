@@ -21,6 +21,12 @@ export default async function handler(req, res) {
   const pageText = await pageRes.text();
   const parser = new DOMParser();
   const doc = parser.parseFromString(pageText, 'text/html');
-  const data = doc.getElementById('__NEXT_DATA__').textContent;
+  const nextPropsContent = doc.getElementById('__NEXT_DATA__').textContent;
+  let data = {};
+  try {
+    data = JSON.parse(nextPropsContent);
+  } catch (e) {
+    // return empty object
+  }
   res.status(200).json(data);
 }
