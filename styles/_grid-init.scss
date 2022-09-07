@@ -11,16 +11,33 @@
  *
  */
 
-import '../styles/index.scss';
-import { ModelManager } from '@adobe/aem-spa-page-model-manager';
-import CustomModelClient from '../lib/CustomModelClient';
-import '../components/import-components';
+@import './grid';
 
-const modelClient = new CustomModelClient(process.env.NEXT_PUBLIC_AEM_HOST);
-ModelManager.initializeAsync({
-  modelClient,
-});
+.aem-GridColumn {
+    padding: 0 1rem;
+}
 
-export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+.responsivegrid.aem-GridColumn{
+    padding-left:0;
+    padding-right:0
+}
+
+$max_col: 12;
+
+//Layout
+$max-width: 1024px;
+
+// Breakpoints
+$mobile-breakpoint: 768px;
+
+// Default breakpoint
+.aem-Grid {
+    @include generate-grid(default, $max_col);
+}
+
+// Phone breakpoint
+@media (max-width: $mobile-breakpoint) {
+    .aem-Grid {
+        @include generate-grid(phone, $max_col);
+    }
 }
