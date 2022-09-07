@@ -11,6 +11,7 @@
  *
  */
 
+const path = require('path');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 module.exports = {
@@ -56,5 +57,8 @@ module.exports = {
         }));
 
         return config;
-    }
+    },
+    sassOptions: {
+        includePaths: [path.join(__dirname, 'styles')],
+    },
 };

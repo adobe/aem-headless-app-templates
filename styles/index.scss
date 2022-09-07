@@ -11,19 +11,8 @@
  *
  */
 
-import '../styles/index.scss';
-import { ModelManager } from '@adobe/aem-spa-page-model-manager';
-import CustomModelClient from '../lib/CustomModelClient';
-import ErrorBoundary from '../components/ErrorBoundary';
-import '../components/import-components';
+@import "~tailwindcss/base";
+@import "~tailwindcss/components";
+@import "~tailwindcss/utilities";
 
-const modelClient = new CustomModelClient(process.env.NEXT_PUBLIC_AEM_HOST);
-ModelManager.initializeAsync({
-  modelClient,
-});
-
-export default function App({ Component, pageProps }) {
-  return <ErrorBoundary>
-    <Component {...pageProps} />
-  </ErrorBoundary>;
-}
+@import "./grid-init";
