@@ -131,7 +131,7 @@ Run the following npx command to bootstrap your Next.js app from the template.
 
 ```bash
 $ npx create-next-app \
-    -e https://github.com/duynguyen/aem-nextjs-template \
+    -e https://github.com/adobe/aem-nextjs-template \
     --use-npm \
     aem-nextjs-app
 ```
