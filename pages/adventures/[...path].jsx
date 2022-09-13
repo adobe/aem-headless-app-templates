@@ -14,10 +14,11 @@
 import Layout from '../../components/layout';
 import { AdventureClient } from '../../lib/adventures';
 import Head from 'next/head';
+import getPages from '../../lib/getPages';
 
-const { NEXT_PUBLIC_AEM_HOST } = process.env;
+const { NEXT_PUBLIC_AEM_HOST, NEXT_PUBLIC_AEM_ROOT } = process.env;
 
-export default function Adventure({ adventure }) {
+export default function Adventure({ adventure, pages }) {
   const {
     title,
     activity,
@@ -31,7 +32,7 @@ export default function Adventure({ adventure }) {
     itinerary,
   } = adventure;
   return (
-    <Layout adventure>
+    <Layout adventure pages={pages}>
       <Head>
         <title>{title}</title>
       </Head>
@@ -39,11 +40,11 @@ export default function Adventure({ adventure }) {
       <div className="bg-white">
       <div className="pt-6">
         
-        <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 overflow-hidden lg:h-80 lg:aspect-none">
+        <div className="w-full overflow-hidden bg-gray-200 min-h-80 aspect-w-1 aspect-h-1 lg:h-80 lg:aspect-none">
           <img
             alt={title}
             src={`${NEXT_PUBLIC_AEM_HOST}${primaryImage._path}`}
-            className="w-full h-full object-center object-cover lg:w-full lg:h-full"
+            className="object-cover object-center w-full h-full lg:w-full lg:h-full"
           />
         </div>
 
@@ -56,7 +57,7 @@ export default function Adventure({ adventure }) {
           {/* Options */}
           <div className="mt-4 lg:mt-0 lg:row-span-3">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl text-gray-900 mb-10">${price} USD</p>
+            <p className="mb-10 text-3xl text-gray-900">${price} USD</p>
             <dl>
               <div className="py-5 sm:grid sm:grid-cols-3 sm:gap-4">
                 <dt className="text-sm font-medium text-gray-500">Activity</dt>
@@ -126,9 +127,11 @@ export async function getStaticProps({ params }) {
   const slug = params.path[0];
   const res = await client.getAdventuresBySlug(slug);
   const adventure = res?.data?.adventureList?.items[0];
+  const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
   return {
     props: {
       adventure,
+      pages
     },
   };
 }
