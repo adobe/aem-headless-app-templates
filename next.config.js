@@ -24,18 +24,20 @@ module.exports = {
                     key: 'Access-Control-Allow-Origin',
                     value: '*'
                 } ]
-            }
-        ]
-    },
-    async rewrites() {
-        return [
-            {
-                source: '/content/:path*',
-                destination: '/api/proxy/:path*'
             },
             {
-                source: '/.model.json',
-                destination: '/api/proxy/.model.json'
+                source: '/asset-manifest.json',
+                headers: [ {
+                    key: 'Access-Control-Allow-Origin',
+                    value: '*'
+                } ]
+            },
+            {
+                source: '/_next/:path*',
+                headers: [ {
+                    key: 'Access-Control-Allow-Origin',
+                    value: '*'
+                } ]
             }
         ]
     },
@@ -45,7 +47,9 @@ module.exports = {
             transform: assets => {
                 const entrypoints = [];
                 for (let file in assets) {
-                    if (assets[file].endsWith('.js') || assets[file].endsWith('.css')) {
+                    if (file.includes('server/')) {
+                        delete assets[file];
+                    } else if (assets[file].endsWith('.js') || assets[file].endsWith('.css')) {
                         entrypoints.push(assets[file]);
                     }
                 }
