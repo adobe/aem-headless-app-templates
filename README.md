@@ -13,12 +13,13 @@ Page content is retrieved from AEM as page model using Sling JSON Exporter and c
 ## Table of contents
 
 <!--ts-->
-   * [Getting Started](#getting-started)
+   * [Set up local AEM environment](#set-up-local-aem-environment)
       * [Start the AEM SDK Quickstart](#start-the-aem-sdk-quickstart)
       * [Download and install WKND Site package](#download-and-install-wknd-site-package)
       * [Set up AEM Project](#set-up-aem-project)
       * [Configure the root AEM page](#configure-the-root-aem-page)
-      * [Bootstrap the Next.js App](#bootstrap-the-nextjs-app)
+      * [Update Template Policies](#update-template-policies)
+   * [Bootstrap the Next.js App](#bootstrap-the-nextjs-app)
    * [Local development](#local-development)
    * [Run in production mode](#run-in-production-mode)
    * [Run on AEM 6.5](#run-on-aem-65)
@@ -28,7 +29,7 @@ Page content is retrieved from AEM as page model using Sling JSON Exporter and c
      * [CORS errors from In-context Editing on a production build](#cors-errors-from-in-context-editing-on-a-production-build)
 <!--te-->
 
-## Getting Started
+## Set up local AEM environment
 
 ### Start the AEM SDK Quickstart
 
@@ -39,7 +40,7 @@ Download and install the AEM SDK Quickstart on port 4502, with default admin/adm
 3. Run the AEM SDK Quickstart Jar
 
 ```bash
-$ java -jar aem-sdk-quickstart-xxx.jar
+java -jar aem-sdk-quickstart-xxx.jar
 
 # Provide `admin` as the admin user's password
 ```
@@ -62,7 +63,7 @@ This tutorial has a dependency on WKND 1.1.0+'s project (for content).
 In the terminal, create an AEM project in which configurations and baseline content are managed. Always use the latest version of the AEM Archetype.
 
 ```bash
-$ mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
+mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
  -D archetypeGroupId=com.adobe.aem \
  -D archetypeArtifactId=aem-project-archetype \
  -D archetypeVersion=37\
@@ -74,9 +75,8 @@ $ mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
 ```
 
 With the base AEM project is generated, a few adjustments ensure SPA Editor compatibility with Remote Next.js SPAs.
-1. Remove ui.frontend project
-2. Cross-Origin Resource Sharing (CORS) security policies: make sure that all your desired origins are allowed in `src/main/content/jcr_root/apps/wknd-app/osgiconfig/config`
-3. Set AEM Page as Next.js Remote SPA Template: open `src/main/content/jcr_root/content/wknd-app/us/en/home/.content.xml` and update it as below.
+1. Remove ui.frontend project. Make sure that its references in the root `pom.xml` file as well as under `ui.apps/pom.xml` (as a dependency) are also deleted.
+2. Set AEM Page as Next.js Remote SPA Template: open `ui.content/src/main/content/jcr_root/content/wknd-app/us/en/home/.content.xml` and update it as below.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -106,13 +106,15 @@ With the base AEM project is generated, a few adjustments ensure SPA Editor comp
 </jcr:root>
 ```
 
+Note regarding Cross-Origin Resource Sharing (CORS) security policies: make sure that all your desired origins are allowed in `ui.config/src/main/content/jcr_root/apps/wknd-app/osgiconfig/config.author`.
+
 Finally, deploy the AEM Project to AEM SDK.
 * Ensure that AEM Author service is running on port 4502
 * From the command line, navigate to the root of the AEM Maven project
 * Use Maven to deploy the project to your local AEM SDK Author service
 
 ```bash
-$ mvn clean install -PautoInstallSinglePackage
+mvn clean install -PautoInstallSinglePackage
 ```
 
 ### Configure the root AEM page
@@ -125,13 +127,23 @@ With the AEM Project deployed, there is one last step to prepare SPA Editor to l
 5. Fill out the Remote SPA Configuration: `http://localhost:3000`
 6. Tap Save & Close
 
-### Bootstrap the Next.js App
+### Update Template Policies
+
+Policies are a feature of AEM templates gives developers and power-users granular control over which components are available to be used. The React Core Components are included in the SPA Code but need to be enabled via a policy before they can be used in the application. By default, the project generated from AEM archetype allows `Layout` and `Text` components only.
+
+1. From the AEM Start screen navigate to Tools > Templates > [WKND App](http://localhost:4502/libs/wcm/core/content/sites/templates.html/conf/wknd-app).
+2. Select and open the Remote Next.js Page template for editing.
+3. Select the Layout Container and click its policy icon to edit the policy.
+4. Under Allowed Components > WKND App - Content > check Image and Title.
+5. Click Done.
+
+## Bootstrap the Next.js App
 
 Run the following npx command to bootstrap your Next.js app from the template.
 
 ```bash
-$ npx create-next-app \
-    -e https://github.com/duynguyen/aem-nextjs-template \
+npx create-next-app \
+    -e https://github.com/adobe/aem-nextjs-template \
     --use-npm \
     aem-nextjs-app
 ```
@@ -153,13 +165,13 @@ NEXT_PUBLIC_AEM_PATH=/content/wknd-app/us/en/home
 To start developing your app, you first need to install all the npm dependencies.
 
 ```bash
-$ npm install
+npm install
 ```
 
 Then, execute the below command to run the app in development mode.
 
 ```bash
-$ npm run dev
+npm run dev
 ```
 
 ## Run in production mode
@@ -167,13 +179,13 @@ $ npm run dev
 Make sure you update `.env.production` with your own instances. Then execute the build command.
 
 ```bash
-$ npm run build
+npm run build
 ```
 
 Once it is built successfully, you can start the production server.
 
 ```bash
-$ npm run start
+npm run start
 ```
 
 ## Run on AEM 6.5
