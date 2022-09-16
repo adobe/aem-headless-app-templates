@@ -14,7 +14,6 @@
 import '../styles/index.scss';
 import { ModelManager } from '@adobe/aem-spa-page-model-manager';
 import CustomModelClient from '../lib/CustomModelClient';
-import ErrorBoundary from '../components/ErrorBoundary';
 import '../components/import-components';
 
 const modelClient = new CustomModelClient(process.env.NEXT_PUBLIC_AEM_HOST);
@@ -23,7 +22,5 @@ ModelManager.initializeAsync({
 });
 
 export default function App({ Component, pageProps }) {
-  return <ErrorBoundary>
-    <Component {...pageProps} />
-  </ErrorBoundary>;
+  return <Component {...pageProps} />;
 }
