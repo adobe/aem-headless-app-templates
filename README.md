@@ -108,6 +108,12 @@ With the base AEM project is generated, a few adjustments ensure SPA Editor comp
 
 Note regarding Cross-Origin Resource Sharing (CORS) security policies: make sure that all your desired origins are allowed in `ui.config/src/main/content/jcr_root/apps/wknd-app/osgiconfig/config.author`.
 
+If you want to use Next v12.2.0 or higher, update the `spa.project.core.version` value in the root `pom.xml` file to `1.3.14`.
+
+```xml
+<spa.project.core.version>1.3.14</spa.project.core.version>
+```
+
 Finally, deploy the AEM Project to AEM SDK.
 * Ensure that AEM Author service is running on port 4502
 * From the command line, navigate to the root of the AEM Maven project
