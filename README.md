@@ -18,7 +18,7 @@ Page content is retrieved from AEM as page model using Sling JSON Exporter and c
       * [Download and install WKND Site package](#download-and-install-wknd-site-package)
       * [Set up AEM Project](#set-up-aem-project)
       * [Configure the root AEM page](#configure-the-root-aem-page)
-      * [Update Template Policies](update-template-policies)
+      * [Update Template Policies](#update-template-policies)
    * [Bootstrap the Next.js App](#bootstrap-the-nextjs-app)
    * [Local development](#local-development)
    * [Run in production mode](#run-in-production-mode)
