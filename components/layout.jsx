@@ -32,7 +32,7 @@ export default function Layout({ children, pages }) {
     return path.indexOf(currPath) === 0;
   };
   return (
-    <div className="min-h-full">
+    <>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="AEM WKND built in Next.js" />
