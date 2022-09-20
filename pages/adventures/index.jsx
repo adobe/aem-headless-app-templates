@@ -20,49 +20,49 @@ import getPages from '../../lib/getPages';
 const { NEXT_PUBLIC_AEM_HOST, NEXT_PUBLIC_AEM_ROOT } = process.env;
 
 export default function Adventures({ adventures, pages }) {
-	return (
-		<Layout pages={pages}>
-			<Head>
-				<title>Adventures</title>
-			</Head>
-			<section className="">
-				<div className="bg-white">
-					<div className="max-w-2xl px-4 py-10 mx-auto sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8">
-						<h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
-							Your next adventures can be one of these...
-						</h2>
-						<div className="grid grid-cols-1 mt-6 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-							{adventures.map(
-								({ slug, title, price, tripLength, primaryImage }) => {
-									return (
-										<AdventureCard
-											key={slug}
-											slug={slug}
-											title={title}
-											price={price}
-											duration={tripLength}
-											imageSrc={`${NEXT_PUBLIC_AEM_HOST}${primaryImage._path}`}
-										/>
-									);
-								}
-							)}
-						</div>
-					</div>
-				</div>
-			</section>
-		</Layout>
-	);
+  return (
+    <Layout pages={pages}>
+      <Head>
+        <title>Adventures</title>
+      </Head>
+      <section className="">
+        <div className="bg-white">
+          <div className="max-w-2xl px-4 py-10 mx-auto sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8">
+            <h2 className="text-2xl font-extrabold tracking-tight text-gray-900">
+              Your next adventures can be one of these...
+            </h2>
+            <div className="grid grid-cols-1 mt-6 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+              {adventures.map(
+                ({ slug, title, price, tripLength, primaryImage }) => {
+                  return (
+                    <AdventureCard
+                      key={slug}
+                      slug={slug}
+                      title={title}
+                      price={price}
+                      duration={tripLength}
+                      imageSrc={`${NEXT_PUBLIC_AEM_HOST}${primaryImage._path}`}
+                    />
+                  );
+                }
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
 }
 
 export async function getServerSideProps() {
-	const client = AdventureClient.fromEnv();
-	const res = await client.getAllAdventures();
-	const adventures = res?.data?.adventureList?.items;
-	const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
-	return {
-		props: {
-			adventures,
-			pages,
-		},
-	};
+  const client = AdventureClient.fromEnv();
+  const res = await client.getAllAdventures();
+  const adventures = res?.data?.adventureList?.items;
+  const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
+  return {
+    props: {
+      adventures,
+      pages,
+    },
+  };
 }
