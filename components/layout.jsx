@@ -134,6 +134,6 @@ export default function Layout({ children, pages }) {
           </a>
         </div>
       </footer>
-    </div>
+    </>
   );
 }
