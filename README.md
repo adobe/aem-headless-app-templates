@@ -51,7 +51,7 @@ AEM SDK will start and automatically launch on http://localhost:4502. Log in usi
 
 ### Download and install WKND Site package
 
-This tutorial has a dependency on WKND 1.1.0+'s project (for content).
+This tutorial has a dependency on WKND 2.1.0+'s project (for content).
 
 1. [Download the latest version of aem-guides-wknd.all.x.x.x.zip](https://github.com/adobe/aem-guides-wknd/releases)
 2. Log in to AEM SDK’s Package Manager at http://localhost:4502/crx/packmgr with the admin credentials.
@@ -66,7 +66,7 @@ In the terminal, create an AEM project in which configurations and baseline cont
 mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
  -D archetypeGroupId=com.adobe.aem \
  -D archetypeArtifactId=aem-project-archetype \
- -D archetypeVersion=37\
+ -D archetypeVersion=39\
  -D aemVersion=cloud \
  -D appTitle="WKND App" \
  -D appId="wknd-app" \
@@ -164,6 +164,7 @@ NEXT_GRAPHQL_ENDPOINT=/content/graphql/global/endpoint.json
 
 NEXT_PUBLIC_AEM_SITE=wknd-app
 NEXT_PUBLIC_AEM_PATH=/content/wknd-app/us/en/home
+NEXT_PUBLIC_AEM_ROOT=/content/wknd-app/us/en
 ```
 
 ## Local development
@@ -204,8 +205,8 @@ To bootstrap the AEM project - use the archetype as follows:
 mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
  -D archetypeGroupId=com.adobe.aem \
  -D archetypeArtifactId=aem-project-archetype \
- -D archetypeVersion=37\
- -D aemVersion=6.5.12 \
+ -D archetypeVersion=39\
+ -D aemVersion=6.5.14 \
  -D appTitle="WKND App" \
  -D appId="wknd-app" \
  -D groupId="com.adobe.aem.guides.wkndapp" \
