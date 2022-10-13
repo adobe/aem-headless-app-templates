@@ -213,7 +213,7 @@ mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
  -D frontendModule="react"
 ```
 
-Install [aem-guides-wknd.all-1.1.0-classic.zip](https://github.com/adobe/aem-guides-wknd/releases/download/aem-guides-wknd-1.1.0/aem-guides-wknd.all-1.1.0-classic.zip) - the `-classic.zip` contains all dependencies needed to make the WKND site work on 6.5. The rest of the steps are the same.  
+Install [aem-guides-wknd.all-x.x.x-classic.zip](https://github.com/adobe/aem-guides-wknd/releases) - the `-classic.zip` contains all dependencies needed to make the WKND site work on 6.5. The rest of the steps are the same.  
 
 _(source: https://github.com/duynguyen/aem-nextjs-template/issues/3)_
 
