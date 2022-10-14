@@ -41,6 +41,10 @@ module.exports = {
             }
         ]
     },
+    i18n: {
+        locales: ["en"],
+        defaultLocale: "en",
+    },
     webpack(config) {
         config.plugins.push(new WebpackAssetsManifest({
             output: '../public/asset-manifest.json',
@@ -59,6 +63,12 @@ module.exports = {
                 };
             }
         }));
+
+        config.module.rules.push({
+            test: /\.(graphql|gql)$/,
+            exclude: /node_modules/,
+            loader: 'graphql-tag/loader',
+        });
 
         return config;
     },
