@@ -13,7 +13,9 @@
 import React from 'react';
 import Link from 'next/link';
 
-const ProductCard = ({ product }) => {
+import OptimizedImage from './OptimizedImage';
+
+const ProductCard = ({ product, priority }) => {
     const {
         name,
         thumbnail: {
@@ -35,13 +37,13 @@ const ProductCard = ({ product }) => {
 
     return (
         <Link href={`/catalog/product/${url_key}`}>
-            <div>
-                <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
-                    <img src={url} alt={label} className="bg-gray-200 w-full h-full object-center object-cover lg:w-full lg:h-full" />
+            <div className="cursor-pointer max-w-sm bg-white rounded-lg border border-gray-200 shadow-md overflow-hidden">
+                <div className="rounded-t-lg">
+                    <OptimizedImage className="bg-gray-200 w-full h-full object-center object-cover lg:w-full lg:h-full" src={url} alt={label} width={280} priority={priority} />
                 </div>
-                <div className="mt-4 flex justify-between">
+                <div className="p-4 flex justify-between items-center">
                     <h3 className="font-semibold text-gray-700">{name}</h3>
-                    <span className="mt-1 text-sm text-gray-500">{formatter.format(value)}</span>
+                    <span className="text-sm text-gray-500">{formatter.format(value)}</span>
                 </div>
             </div>
         </Link>

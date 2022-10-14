@@ -10,8 +10,9 @@
  * governing permissions and limitations under the License.
  */
 
+import React from 'react';
 import Head from 'next/head';
-import Error from 'next/error'
+import Error from 'next/error';
 
 import client from '../../../lib/graphqlClient';
 import Layout from '../../../components/layout';
@@ -58,7 +59,7 @@ export default function Product(props) {
             <div className="bg-white">
                 <div className="max-w-2xl px-4 py-10 mx-auto sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8">
                     <Breadcrumbs categories={categories} product={product} />
-                    <div className="gap-8 flex flex-row">
+                    <div className="gap-8 flex flex-col md:flex-row">
                         <div className="basis-1/3">
                             <Gallery media_gallery={media_gallery} />
                         </div>
@@ -79,14 +80,14 @@ export default function Product(props) {
                                             attribute_option 
                                         }
                                     } = attribute;
-                                    return <>
+                                    return <React.Fragment key={`${label}-key`}>
                                         <span className="text-right text-sm text-gray-500">{label}</span>
                                         <span>
                                             <select name={attribute_uid} defaultValue={attribute_option.filter(o => o.is_default)?.uid}>
-                                                {attribute_option.map(option => <option value={option.uid}>{option.label}</option>)}
+                                                {attribute_option.map(option => <option key={option.uid} value={option.uid}>{option.label}</option>)}
                                             </select>
                                         </span>
-                                    </>;
+                                    </React.Fragment>;
                                 })}
                             </div>
                             <div className="col-span-2 block p-6 rounded border border-gray-200 shadow-md">

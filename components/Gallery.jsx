@@ -13,6 +13,8 @@
 import React from 'react'
 import { useState } from 'react';
 
+import OptimizedImage from './OptimizedImage';
+
 const Gallery = ({ media_gallery }) => {
     const [currentImage, setCurrentImage] = useState(0);
 
@@ -24,10 +26,14 @@ const Gallery = ({ media_gallery }) => {
 
     return <div>
         <div>
-            <img className="shadow-lg rounded bg-gray-200 w-full h-full object-center object-cover lg:w-full lg:h-full" src={images[currentImage].url} alt={images[currentImage].label} />
+            <OptimizedImage className="shadow-lg rounded bg-gray-200 w-full h-full object-center object-cover lg:w-full lg:h-full" src={images[currentImage].url} alt={images[currentImage].label} width={395} priority />
         </div>
         <div className="flex gap-12 flex-row flex-wrap py-5">
-            {images.map((image, index) => <div className="shadow-md basis-1/4 rounded overflow-hidden"><img key={`image-${index}`} onClick={() => setCurrentImage(index)} src={image.url} alt={image.label} /></div>)}
+            {images.map((image, index) => (
+                <div onClick={() => setCurrentImage(index)} key={`image-${index}`} className="cursor-pointer shadow-md basis-1/4 rounded overflow-hidden">
+                    <OptimizedImage src={image.url} alt={image.label} width={100} />
+                </div>
+            ))}
         </div>
     </div>;
 };

@@ -41,6 +41,10 @@ module.exports = {
             }
         ]
     },
+    i18n: {
+        locales: ["en"],
+        defaultLocale: "en",
+    },
     webpack(config) {
         config.plugins.push(new WebpackAssetsManifest({
             output: '../public/asset-manifest.json',
