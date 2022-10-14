@@ -8,6 +8,14 @@
             "endpoint": "https://venia.magento.com/graphql/"
           }
         }
+      },
+      {
+        "name": "AEM",
+        "handler": {
+          "graphql": {
+            "endpoint": "https://publish-p58305-e465192.adobeaemcloud.com/content/cq:graphql/venia/endpoint.json"
+          }
+        }
       }
     ]
   }
