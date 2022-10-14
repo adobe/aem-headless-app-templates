@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
-
-const query = gql`query getProductByUrlKey($urlKey: String!) {
+query getProductByUrlKey($urlKey: String!) {
     products(
         filter: { url_key: { eq: $urlKey } }
         pageSize: 1
@@ -49,6 +47,4 @@ const query = gql`query getProductByUrlKey($urlKey: String!) {
             }
         }
     }
-}`;
-
-export default query;
+}

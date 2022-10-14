@@ -16,7 +16,7 @@ import Error from 'next/error'
 import client from '../../../lib/graphqlClient';
 import Layout from '../../../components/layout';
 import getPages from '../../../lib/getPages';
-import getProductByUrlKey from './getProductByUrlKey.query';
+import getProductByUrlKey from './getProductByUrlKey.graphql';
 import Gallery from '../../../components/Gallery';
 import Breadcrumbs from '../../../components/Breadcrumbs';
 

@@ -16,7 +16,7 @@ import Error from 'next/error'
 import client from '../../../lib/graphqlClient';
 import Layout from '../../../components/layout';
 import getPages from '../../../lib/getPages';
-import getCategoryByUrlKey from './getCategoryByUrlKey.query';
+import getCategoryByUrlKey from './getCategoryByUrlKey.graphql';
 import ProductCard from '../../../components/ProductCard';
 
 const { NEXT_PUBLIC_AEM_ROOT } = process.env;

@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
-
-const query = gql`query getCategoryByUrlKey($urlKey: String!) {
+query getCategoryByUrlKey($urlKey: String!) {
     categories(
         filters: { url_key: { eq: $urlKey } }
         pageSize: 1
@@ -31,6 +29,4 @@ const query = gql`query getCategoryByUrlKey($urlKey: String!) {
             }
         }
     }
-}`;
-
-export default query;
+}
