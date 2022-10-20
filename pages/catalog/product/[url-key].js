@@ -10,109 +10,136 @@
  * governing permissions and limitations under the License.
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Head from 'next/head';
 import Error from 'next/error';
 
 import client from '../../../lib/graphqlClient';
 import Layout from '../../../components/layout';
 import getPages from '../../../lib/getPages';
+import importCSROnly from '../../../lib/importCSROnly';
 import getProductByUrlKey from './getProductByUrlKey.graphql';
 import Gallery from '../../../components/Gallery';
 import Breadcrumbs from '../../../components/Breadcrumbs';
+import Login from '../../../components/Login';
+import ProductConfiguration from '../../../components/ProductConfiguration';
+
+// CSR Imports
+const { customerToken, addProductsToCart } = await importCSROnly(() =>
+  import('StorefrontCart/api')
+);
 
 const { NEXT_PUBLIC_AEM_ROOT } = process.env;
 
 export default function Product(props) {
-    const { product, pages } = props;
+  const [loggedIn, setLoggedIn] = useState(!!customerToken?.value);
+  const optionsRef = useRef(null);
 
-    if (!product) {
-        return <Error statusCode={404} />
-    }
+  useEffect(() => {
+    const watch = customerToken.watch((token) => {
+      setLoggedIn(!!token);
+    });
 
-    const {
-        name,
-        sku,
-        description: {
-            html
-        },
-        categories,
-        media_gallery,
-        price_range: {
-            minimum_price: {
-                final_price: {
-                    currency,
-                    value
-                }
-            }
-        },
-        custom_attributes
-    } = product;
+    return () => {
+      watch.cancel();
+    };
+  }, []);
 
-    const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency });
+  const { product, pages } = props;
 
-    return <Layout pages={pages}>
-        <Head>
-            <title>{name}</title>
-        </Head>
-        <section>
-            <div className="bg-white">
-                <div className="max-w-2xl px-4 py-10 mx-auto sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8">
-                    <Breadcrumbs categories={categories} product={product} />
-                    <div className="gap-8 flex flex-col md:flex-row">
-                        <div className="basis-1/3">
-                            <Gallery media_gallery={media_gallery} />
-                        </div>
-                        <div className="basis-2/3">
-                            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900">{name}</h1>
-                            <div className="p-6 grid grid-cols-[25%_75%] gap-4 rounded border border-gray-200 shadow-md my-6">
-                                <span className="text-right text-sm text-gray-500">SKU</span>
-                                <span>{sku}</span>
-                                <span className="text-right text-sm text-gray-500">Price</span>
-                                <span>{formatter.format(value)}</span>
-                                {custom_attributes.map(attribute => {
-                                    const {
-                                        attribute_metadata: { 
-                                            label,
-                                            uid : attribute_uid
-                                        },
-                                        selected_attribute_options: { 
-                                            attribute_option 
-                                        }
-                                    } = attribute;
-                                    return <React.Fragment key={`${label}-key`}>
-                                        <span className="text-right text-sm text-gray-500">{label}</span>
-                                        <span>
-                                            <select name={attribute_uid} defaultValue={attribute_option.filter(o => o.is_default)?.uid}>
-                                                {attribute_option.map(option => <option key={option.uid} value={option.uid}>{option.label}</option>)}
-                                            </select>
-                                        </span>
-                                    </React.Fragment>;
-                                })}
-                            </div>
-                            <div className="col-span-2 block p-6 rounded border border-gray-200 shadow-md">
-                                <span dangerouslySetInnerHTML={{ __html: html }} />
-                            </div>
-                        </div>
-                    </div>
+  if (!product) {
+    return <Error statusCode={404} />;
+  }
+
+  const {
+    name,
+    sku,
+    description: { html },
+    categories,
+    media_gallery,
+    price_range: {
+      minimum_price: {
+        final_price: { currency, value },
+      },
+    },
+    configurable_options,
+  } = product;
+
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency,
+  });
+
+  return (
+    <Layout pages={pages}>
+      <Head>
+        <title>{name}</title>
+      </Head>
+      <section>
+        <div className="bg-white">
+          <div className="max-w-2xl px-4 py-10 mx-auto sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8">
+            <Breadcrumbs categories={categories} product={product} />
+
+            <div className="gap-8 flex flex-col md:flex-row">
+              <div className="basis-1/3">
+                <Gallery media_gallery={media_gallery} />
+              </div>
+              <div className="basis-2/3">
+                <h1 className="text-3xl font-bold tracking-tight text-gray-900 mb-2">
+                  {name}
+                </h1>
+
+                <p className="text-3xl tracking-tight text-gray-900 mb-6">
+                  $192
+                </p>
+
+                <form ref={optionsRef} className="flex flex-col gap-6 mb-8">
+                  <ProductConfiguration options={configurable_options} />
+                </form>
+
+                <div className="mt-0 mb-8 w-full grid grid-flow-row gap-1">
+                  {loggedIn ? (
+                    <button
+                      className="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-md font-semibold text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                      onClick={() => {
+                        const formData = new FormData(optionsRef.current);
+                        const values = Object.fromEntries(formData);
+                        const optionsUIDs = Object.values(values);
+                        addProductsToCart([{ quantity: 1, sku, optionsUIDs }]);
+                      }}
+                    >
+                      Add to Cart
+                    </button>
+                  ) : (
+                    <Login />
+                  )}
                 </div>
+
+                <span
+                  className="text-sm text-gray-600"
+                  dangerouslySetInnerHTML={{ __html: html }}
+                />
+              </div>
             </div>
-        </section>
-    </Layout>;
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
 }
 
 export async function getServerSideProps({ params }) {
-    const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
+  const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
 
-    const { data } = await client.query({
-        query: getProductByUrlKey,
-        variables: {
-            urlKey: params['url-key'],
-        }
-    });
+  const { data } = await client.query({
+    query: getProductByUrlKey,
+    variables: {
+      urlKey: params['url-key'],
+    },
+  });
 
-    const product = data?.products?.items?.[0] || null;
-    return {
-        props: { pages, product },
-    };
+  const product = data?.products?.items?.[0] || null;
+  return {
+    props: { pages, product },
+  };
 }

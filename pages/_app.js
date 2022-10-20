@@ -14,13 +14,33 @@
 import '../styles/index.scss';
 import { ModelManager } from '@adobe/aem-spa-page-model-manager';
 import CustomModelClient from '../lib/CustomModelClient';
+import importCSROnly from '../lib/importCSROnly';
 import '../components/import-components';
+import { Fragment } from 'react';
 
 const modelClient = new CustomModelClient(process.env.NEXT_PUBLIC_AEM_HOST);
 ModelManager.initializeAsync({
   modelClient,
 });
 
+// importCSROnly
+const { renderer } = await importCSROnly(() =>
+  import('StorefrontCart/renderer')
+);
+const { Panels } = await importCSROnly(() =>
+  import('StorefrontCart/containers/Panels')
+);
+
+const render = renderer?.({
+  endpoint: process.env.NEXT_COMMERCE_GRAPHQL_ENDPOINT,
+  mesh: 'Commerce',
+});
+
 export default function App({ Component, pageProps }) {
-  return <Component {...pageProps} />;
+  return (
+    <Fragment>
+      <Component {...pageProps} />
+      <div ref={render?.(Panels)}></div>
+    </Fragment>
+  );
 }
