@@ -11,8 +11,24 @@
  *
  */
 
-@import "~tailwindcss/base";
-@import "~tailwindcss/components";
-@import "~tailwindcss/utilities";
+@import '~tailwindcss/base';
+@import '~tailwindcss/components';
+@import '~tailwindcss/utilities';
 
-@import "./grid-init";
+@import './grid-init';
+
+/* Cart Count Indicator */
+[data-cart-qty] {
+  position: relative;
+}
+
+[data-cart-qty]:not([data-cart-qty=''])::after {
+  color: currentColor;
+  content: attr(data-cart-qty);
+  font-size: 0.75em;
+  font-weight: 600;
+  line-height: 0;
+  position: absolute;
+  left: 30px;
+  top: 6px;
+}

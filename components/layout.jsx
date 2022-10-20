@@ -11,11 +11,18 @@
  *
  */
 
+import { useEffect, useRef } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Disclosure } from '@headlessui/react';
 import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import importCSROnly from '../lib/importCSROnly';
+
+// CSR Imports
+const { togglePanel, cartItemsQuantity } = await importCSROnly(() =>
+  import('StorefrontCart/api')
+);
 
 const { NEXT_PUBLIC_URL } = process.env;
 
@@ -26,6 +33,20 @@ function classNames(...classes) {
 }
 
 export default function Layout({ children, pages }) {
+  const cartBtnRef = useRef(null);
+
+  useEffect(() => {
+    if (!cartBtnRef.current) return;
+
+    const watch = cartItemsQuantity.watch((qty) => {
+      cartBtnRef.current.setAttribute('data-cart-qty', qty || '');
+    });
+
+    return () => {
+      watch.cancel();
+    };
+  }, [cartBtnRef.current]);
+
   const router = useRouter();
   const isCurrentPage = (currPath) => {
     const path = router.asPath === '/' ? '/home' : router.asPath;
@@ -89,7 +110,8 @@ export default function Layout({ children, pages }) {
                                 ? 'bg-yellow-300 text-gray-700'
                                 : 'text-gray-800 hover:bg-yellow-200 hover:text-gray-700',
                               'px-3 py-2 rounded-md text-sm font-medium'
-                            )}>
+                            )}
+                          >
                             {item.name}
                           </a>
                         </Link>
@@ -97,6 +119,28 @@ export default function Layout({ children, pages }) {
                     </div>
                   </div>
                 </div>
+
+                <button
+                  ref={cartBtnRef}
+                  onClick={() => togglePanel('cart')}
+                  className="p-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                    arial-label="Shopping Cart"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                    />
+                  </svg>
+                </button>
               </div>
             </div>
 
@@ -113,9 +157,8 @@ export default function Layout({ children, pages }) {
                         : 'text-gray-800 hover:bg-yellow-200 hover:text-gray-700',
                       'block px-3 py-2 rounded-md text-base font-medium'
                     )}
-                    aria-current={
-                      isCurrentPage(item.href) ? 'page' : undefined
-                    }>
+                    aria-current={isCurrentPage(item.href) ? 'page' : undefined}
+                  >
                     {item.name}
                   </Disclosure.Button>
                 ))}
