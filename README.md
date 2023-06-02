@@ -66,12 +66,12 @@ In the terminal, create an AEM project in which configurations and baseline cont
 mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
  -D archetypeGroupId=com.adobe.aem \
  -D archetypeArtifactId=aem-project-archetype \
- -D archetypeVersion=39\
+ -D archetypeVersion=41\
  -D aemVersion=cloud \
  -D appTitle="WKND App" \
  -D appId="wknd-app" \
  -D groupId="com.adobe.aem.guides.wkndapp" \
- -D frontendModule="react"
+ -D frontendModule="decoupled"
 ```
 
 With the base AEM project is generated, a few adjustments ensure SPA Editor compatibility with Remote Next.js SPAs.
@@ -108,12 +108,6 @@ With the base AEM project is generated, a few adjustments ensure SPA Editor comp
 
 Note regarding Cross-Origin Resource Sharing (CORS) security policies: make sure that all your desired origins are allowed in `ui.config/src/main/content/jcr_root/apps/wknd-app/osgiconfig/config.author`.
 
-If you want to use Next v12.2.0 or higher, update the `spa.project.core.version` value in the root `pom.xml` file to `1.3.14`.
-
-```xml
-<spa.project.core.version>1.3.14</spa.project.core.version>
-```
-
 Finally, deploy the AEM Project to AEM SDK.
 * Ensure that AEM Author service is running on port 4502
 * From the command line, navigate to the root of the AEM Maven project
@@ -132,16 +126,6 @@ With the AEM Project deployed, there is one last step to prepare SPA Editor to l
 4. Navigate to the SPA tab
 5. Fill out the Remote SPA Configuration: `http://localhost:3000`
 6. Tap Save & Close
-
-### Update Template Policies
-
-Policies are a feature of AEM templates gives developers and power-users granular control over which components are available to be used. The React Core Components are included in the SPA Code but need to be enabled via a policy before they can be used in the application. By default, the project generated from AEM archetype allows `Layout` and `Text` components only.
-
-1. From the AEM Start screen navigate to Tools > Templates > [WKND App](http://localhost:4502/libs/wcm/core/content/sites/templates.html/conf/wknd-app).
-2. Select and open the Remote Next.js Page template for editing.
-3. Select the Layout Container and click its policy icon to edit the policy.
-4. Under Allowed Components > WKND App - Content > check Image and Title.
-5. Click Done.
 
 ## Bootstrap the Next.js App
 
@@ -205,12 +189,12 @@ To bootstrap the AEM project - use the archetype as follows:
 mvn -B org.apache.maven.plugins:maven-archetype-plugin:3.2.1:generate \
  -D archetypeGroupId=com.adobe.aem \
  -D archetypeArtifactId=aem-project-archetype \
- -D archetypeVersion=39\
- -D aemVersion=6.5.14 \
+ -D archetypeVersion=41\
+ -D aemVersion=6.5.17 \
  -D appTitle="WKND App" \
  -D appId="wknd-app" \
  -D groupId="com.adobe.aem.guides.wkndapp" \
- -D frontendModule="react"
+ -D frontendModule="decoupled"
 ```
 
 Install [aem-guides-wknd.all-x.x.x-classic.zip](https://github.com/adobe/aem-guides-wknd/releases) - the `-classic.zip` contains all dependencies needed to make the WKND site work on 6.5. The rest of the steps are the same.  
