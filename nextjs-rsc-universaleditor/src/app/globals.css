@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+@layer utilities {
+  @variants responsive {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  }
+}
+
+@layer components {
+  .btn-yellow {
+    @apply bg-yellow hover:bg-black hover:text-yellow dark:bg-black dark:border-4 dark:border-yellow dark:hover:text-black dark:hover:bg-yellow uppercase transition-all duration-200 ease-in-out;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  /*background: rgb(var(--background-start-rgb));*/
+  background: rgb(var(--background-end-rgb));
+  /*background: linear-gradient(*/
+  /*    to bottom,*/
+  /*    transparent,*/
+  /*    rgb(var(--background-end-rgb))*/
+  /*  )*/
+  /*  rgb(var(--background-start-rgb));*/
+}
+
+h1 {
+  font-family: "Asar", Georgia, "Times New Roman", Times, serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 60px;
+  margin-bottom: 13.5px;
+  margin-top: 27px;
+  text-align: left
+}
+
+h2 {
+  font-family: "Asar", Georgia, "Times New Roman", Times, serif;
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 54px;
+  margin-bottom: 13.5px;
+  margin-top: 27px;
+  text-align: left
+}
+
+/*a {*/
+/*  color: rgb(var(--background-start-rgb));*/
+/*}*/
