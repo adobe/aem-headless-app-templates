@@ -129,16 +129,16 @@ With the AEM Project deployed, there is one last step to prepare SPA Editor to l
 
 ## Bootstrap the Next.js App
 
-Run the following npx command to bootstrap your Next.js app from the template.
+Clone this project to your local machine. You can copy the source code to a different location.
 
 ```bash
-npx create-next-app \
-    -e https://github.com/adobe/aem-headless-app-templates/nextjs-remotespa \
-    --use-npm \
-    aem-nextjs-app
+git clone https://github.com/adobe/aem-headless-app-templates
+mkdir aem-nextjs-app
+cp -r aem-headless-app-templates/nextjs-remotespa/* aem-nextjs-app/
+cd aem-nextjs-app/
 ```
 
-Make sure that your `.env.development` file has the correct values of your local environment. Below is an example.
+Do not forget to run `npm install`. Make sure that your `.env.development` file has the correct values of your local environment. Below is an example.
 
 ```bash
 NEXT_PUBLIC_URL=http://localhost:3000
